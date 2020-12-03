@@ -1,4 +1,4 @@
-import { loadData3 } from './common.mjs'
+import { loadData2 } from './common.mjs'
 
 function validate(password, letter, firstPos, secondPos) {
   const firstMatch = password[firstPos - 1] === letter
@@ -15,7 +15,7 @@ function parseData(data) {
   })
 }
 
-const data = await loadData3()
+const data = await loadData2()
 const parsedData = parseData(data)
 const validPasswordCount = parsedData.reduce((count, dataRow) => {
   return validate(...dataRow) ? count + 1 : count

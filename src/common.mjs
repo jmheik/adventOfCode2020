@@ -11,6 +11,11 @@ export async function loadData1() {
   return input.split('\n').filter(Boolean).map(line => parseInt(line, 10))
 }
 
+export async function loadData2() {
+  const input = await readDataFile('./data/2.txt')
+  return input.split('\n').filter(Boolean)
+}
+
 export async function loadData3() {
   const input = await readDataFile('./data/3.txt')
   return input.split('\n').filter(Boolean)
