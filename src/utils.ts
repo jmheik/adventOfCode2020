@@ -2,17 +2,24 @@ async function readDataFile(dataFileName: string) {
   return Deno.readTextFile(`./src/data/${dataFileName}`);
 }
 
+async function dataFileAsLines(dataFileName: string) {
+  const data = await readDataFile(dataFileName);
+  return data.split("\n").filter(Boolean);
+}
+
 export async function loadData1() {
-  const input = await readDataFile("1.txt");
-  return input.split("\n").filter(Boolean).map((line) => parseInt(line, 10));
+  const lines = await dataFileAsLines("1.txt");
+  return lines.map((line) => parseInt(line, 10));
 }
 
 export async function loadData2() {
-  const input = await readDataFile("2.txt");
-  return input.split("\n").filter(Boolean);
+  return dataFileAsLines("2.txt");
 }
 
 export async function loadData3() {
-  const input = await readDataFile("3.txt");
-  return input.split("\n").filter(Boolean);
+  return dataFileAsLines("3.txt");
+}
+
+export async function loadData4() {
+  return readDataFile("4.txt");
 }
