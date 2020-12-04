@@ -1,6 +1,6 @@
-import { loadData3 } from './common.mjs'
+import { loadData3 } from './utils.ts'
 
-function countTrees(terrain, slopeRight, slopeDown) {
+function countTrees(terrain: string[], slopeRight: number, slopeDown: number) {
   let x = 0, y = 0, count = 0
   do {
     const row = terrain[y]
@@ -12,7 +12,7 @@ function countTrees(terrain, slopeRight, slopeDown) {
   return count
 }
 
-const slopes = [
+const slopes: Array<[number, number]> = [
   [1, 1],
   [3, 1],
   [5, 1],

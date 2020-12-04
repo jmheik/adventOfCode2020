@@ -1,12 +1,12 @@
-import { loadData2 } from './common.mjs'
+import { loadData2 } from './utils.ts'
 
-function validate(password, letter, firstPos, secondPos) {
+function validate(password: string, letter: string, firstPos: number, secondPos: number) {
   const firstMatch = password[firstPos - 1] === letter
   const secondMatch = password[secondPos - 1] === letter
   return firstMatch ? !secondMatch : secondMatch
 }
 
-function parseData(data) {
+function parseData(data: string[]): Array<[string, string, number, number]> {
   return data.map(line => {
     const [policy, password] = line.split(': ')
     const [range, letter] = policy.split(' ')

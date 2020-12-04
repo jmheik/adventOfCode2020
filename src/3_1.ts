@@ -1,6 +1,6 @@
-import { loadData3 } from './common.mjs'
+import { loadData3 } from './utils.ts'
 
-function countTrees(terrain, slope) {
+function countTrees(terrain: string[], slope: number) {
   return terrain.reduce((count, row, i) => {
     const pos = (i * slope) % row.length
     return count + (row[pos] === '#' ? 1 : 0)

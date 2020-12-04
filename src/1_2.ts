@@ -1,6 +1,6 @@
-import { loadData1 } from './common.mjs'
+import { loadData1 } from './utils.ts'
 
-function findTripletWithSum(numbers, sum) {
+function findTripletWithSum(numbers: number[], sum: number) {
   const sorted = numbers.sort()
   for (let i=0; i<sorted.length; i++) {
     for (let j=i+1; j<sorted.length; j++) {

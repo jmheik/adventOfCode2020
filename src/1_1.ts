@@ -1,7 +1,7 @@
-import { loadData1 } from './common.mjs'
+import { loadData1 } from './utils.ts'
 
-function findPairWithSum(numbers, sum) {
-  return numbers.reduce((pair, num1, i) => {
+function findPairWithSum(numbers: number[], sum: number) {
+  return numbers.reduce<[number, number] | null>((pair, num1) => {
     if (pair) {
       return pair
     }
