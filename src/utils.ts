@@ -23,3 +23,7 @@ export async function loadData3() {
 export async function loadData4() {
   return readDataFile("4.txt");
 }
+
+export async function loadData5() {
+  return dataFileAsLines("5.txt");
+}
