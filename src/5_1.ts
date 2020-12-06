@@ -1,15 +1,13 @@
-import { loadData5 } from './utils.ts';
+import { loadData5 } from "./utils.ts";
 
 function toBits(str: string) {
-  return Array.from(str).map(char =>
-    (char === 'B' || char === 'R') ? 1 : 0
-  )
+  return Array.from(str).map((char) => (char === "B" || char === "R") ? 1 : 0);
 }
 
 function toNumber(bitArray: number[]) {
   return bitArray.reduce((acc, bit) => (
     (acc << 1) | bit
-  ), 0)
+  ), 0);
 }
 
 function parseSeat(pass: string) {
@@ -23,9 +21,8 @@ function parseSeat(pass: string) {
   return [rowNumber, seatNumber, seatId];
 }
 
-
 const data = await loadData5();
 const seats = data.map(parseSeat);
-const highestSeatId = Math.max(...seats.map(s => s[2]));
+const highestSeatId = Math.max(...seats.map((s) => s[2]));
 
 console.log("RESULT", highestSeatId);
