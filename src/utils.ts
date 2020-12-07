@@ -31,3 +31,7 @@ export async function loadData5() {
 export async function loadData6() {
   return readDataFile("6.txt");
 }
+
+export async function loadData7() {
+  return dataFileAsLines("7.txt");
+}
