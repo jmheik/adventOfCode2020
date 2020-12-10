@@ -44,3 +44,8 @@ export async function loadData9() {
   const lines = await dataFileAsLines("9.txt");
   return lines.map((line) => parseInt(line, 10));
 }
+
+export async function loadData10() {
+  const lines = await dataFileAsLines("10.txt");
+  return lines.map((line) => parseInt(line, 10));
+}
