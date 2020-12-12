@@ -54,3 +54,11 @@ export async function loadData11() {
   const lines = await dataFileAsLines("11.txt");
   return lines.map((line) => Array.from(line));
 }
+
+export async function loadData12() {
+  const lines = await dataFileAsLines("12.txt");
+  return lines.map<[string, number]>((line) => [
+    line.slice(0, 1),
+    parseInt(line.slice(1)),
+  ]);
+}
