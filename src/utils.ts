@@ -62,3 +62,7 @@ export async function loadData12() {
     parseInt(line.slice(1)),
   ]);
 }
+
+export async function loadData13() {
+  return dataFileAsLines("13.txt");
+}

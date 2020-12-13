@@ -1,3 +1,3 @@
-console.log("Run 'deno run --allowRead src/[puzzleNumber].mjs'");
+console.log("Run 'deno run --allow-read src/[puzzleNumber].ts'");
 
 export {};
