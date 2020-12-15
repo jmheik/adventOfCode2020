@@ -1,13 +1,9 @@
-// Brute force, there must be faster algorithm for this
 function iterate(input: number[], turns: number) {
-  let lastIndices = input.reduce<{ [key: number]: number }>((acc, num, i) => ({
-    ...acc,
-    [num]: i,
-  }), {});
+  const lastIndices = new Map(input.map((value, index) => [value, index]));
   let current = 0;
   for (let i = input.length; i < turns - 1; i++) {
-    const lastIndexOfCurrent = lastIndices[current];
-    lastIndices[current] = i;
+    const lastIndexOfCurrent = lastIndices.get(current);
+    lastIndices.set(current, i);
     current = lastIndexOfCurrent === undefined ? 0 : i - lastIndexOfCurrent;
   }
   return current;
