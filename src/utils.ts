@@ -94,3 +94,7 @@ export async function loadData21() {
 export async function loadData22() {
   return dataFileAsLines("22.txt");
 }
+
+export async function loadData24() {
+  return dataFileAsLines("24.txt");
+}

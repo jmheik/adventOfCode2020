@@ -8,10 +8,10 @@ const range = Array(10).fill(0).map((_, i) => i);
 const OPPOSITES = [2, 3, 0, 1];
 
 const matchPattern = [
-  '                  # ',
-  '#    ##    ##    ###',
-  ' #  #  #  #  #  #   ',
-].map(line => line.replace(/ /g, '.').split(''));
+  "                  # ",
+  "#    ##    ##    ###",
+  " #  #  #  #  #  #   ",
+].map((line) => line.replace(/ /g, ".").split(""));
 
 type Tile = {
   id: number;
@@ -25,7 +25,7 @@ function equals(row1: string[], row2: string[]) {
 }
 
 function match(pattern: string[], row: string[]) {
-  return pattern.every((v, i) => v !== '#' || row[i] === '#');
+  return pattern.every((v, i) => v !== "#" || row[i] === "#");
 }
 
 function noop(data: string[][]) {
@@ -56,18 +56,23 @@ function parseTiles(data: string[]): Tile[] {
 
 function getSide(tile: Tile, side: number) {
   switch (side) {
-    case TOP: return tile.data[0];
-    case RIGHT: return range.map((i) => tile.data[i][9]);
-    case BOTTOM: return tile.data[9];
-    case LEFT: return range.map((i) => tile.data[i][0]);
-    default: return [];
+    case TOP:
+      return tile.data[0];
+    case RIGHT:
+      return range.map((i) => tile.data[i][9]);
+    case BOTTOM:
+      return tile.data[9];
+    case LEFT:
+      return range.map((i) => tile.data[i][0]);
+    default:
+      return [];
   }
 }
 
 function getAdjacent(tile: Tile, side: number, tiles: Tile[]) {
   const row1 = getSide(tile, side);
   const adjacentSide = OPPOSITES[side];
-  return tiles.find(tile2 => {
+  return tiles.find((tile2) => {
     if (tile.id === tile2.id) {
       return;
     }
@@ -75,20 +80,22 @@ function getAdjacent(tile: Tile, side: number, tiles: Tile[]) {
       const row2 = getSide(tile2, adjacentSide);
       return equals(row1, row2);
     }
-    return [noop, rotate, rotate, rotate, flip, rotate, rotate, rotate].some(op => {
-      tile2.data = op(tile2.data);
-      const row2 = getSide(tile2, adjacentSide);
-      return equals(row1, row2);
-    });
+    return [noop, rotate, rotate, rotate, flip, rotate, rotate, rotate].some(
+      (op) => {
+        tile2.data = op(tile2.data);
+        const row2 = getSide(tile2, adjacentSide);
+        return equals(row1, row2);
+      },
+    );
   });
 }
 
-function fillNeighbors(tile: Tile, tiles: Tile[]): void  {
+function fillNeighbors(tile: Tile, tiles: Tile[]): void {
   if (tile.handled) {
     return;
   }
   tile.handled = true;
-  for (let i=0; i<4; i++) {
+  for (let i = 0; i < 4; i++) {
     if (!tile.neighbors[i]) {
       const adjacent = getAdjacent(tile, i, tiles);
       if (adjacent) {
@@ -102,9 +109,11 @@ function fillNeighbors(tile: Tile, tiles: Tile[]): void  {
 
 function stitchImage(tiles: Tile[]): string[][] {
   const pixels = Math.sqrt(tiles.length) * 8;
-  const image: string[][] = Array(pixels).fill(0).map(_ => Array(pixels).fill('.'));
-  
-  let rowTile = tiles.find(tile =>
+  const image: string[][] = Array(pixels).fill(0).map((_) =>
+    Array(pixels).fill(".")
+  );
+
+  let rowTile = tiles.find((tile) =>
     !tile.neighbors[TOP] && !tile.neighbors[LEFT]
   );
   let row = 0;
@@ -112,9 +121,9 @@ function stitchImage(tiles: Tile[]): string[][] {
     let columnTile = rowTile as Tile | undefined;
     let column = 0;
     while (columnTile) {
-      for (let i=0; i<8; i++) {
-        for (let j=0; j<8; j++) {
-          image[row+i][column+j] = columnTile.data[i+1][j+1];
+      for (let i = 0; i < 8; i++) {
+        for (let j = 0; j < 8; j++) {
+          image[row + i][column + j] = columnTile.data[i + 1][j + 1];
         }
       }
       columnTile = columnTile.neighbors[RIGHT];
@@ -140,19 +149,18 @@ function solvePuzzle1(data: string[]) {
 
 function findMatches(image: string[][], pattern: string[][]) {
   let matches = 0;
-  for (let i=0; i<image.length - pattern.length; i++) {
-    for (let j=0; j<image.length - pattern[0].length; j++) {
+  for (let i = 0; i < image.length - pattern.length; i++) {
+    for (let j = 0; j < image.length - pattern[0].length; j++) {
       if (
-        pattern.every((p, pi) => match(p, image[i+pi].slice(j)))
+        pattern.every((p, pi) => match(p, image[i + pi].slice(j)))
       ) {
         matches++;
       }
     }
   }
   if (matches > 0) {
-    const count =
-      image.flat().filter(l => l === '#').length -
-      (pattern.flat().filter(l => l === '#').length * matches);
+    const count = image.flat().filter((l) => l === "#").length -
+      (pattern.flat().filter((l) => l === "#").length * matches);
     return count;
   }
   return matches;
@@ -162,10 +170,11 @@ function solvePuzzle2(data: string[]) {
   const tiles = parseTiles(data);
   fillNeighbors(tiles[1], tiles);
   let image = stitchImage(tiles);
-  const counts = [noop, rotate, rotate, rotate, flip, rotate, rotate, rotate].map(op => {
-    image = op(image);
-    return findMatches(image, matchPattern);
-  });
+  const counts = [noop, rotate, rotate, rotate, flip, rotate, rotate, rotate]
+    .map((op) => {
+      image = op(image);
+      return findMatches(image, matchPattern);
+    });
   return Math.max(...counts);
 }
 
